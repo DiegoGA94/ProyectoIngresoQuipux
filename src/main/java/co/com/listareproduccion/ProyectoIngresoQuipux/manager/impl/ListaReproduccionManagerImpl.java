@@ -2,6 +2,7 @@ package co.com.listareproduccion.ProyectoIngresoQuipux.manager.impl;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
 import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,6 @@ import co.com.listareproduccion.ProyectoIngresoQuipux.manager.IListaReproduccion
 import co.com.listareproduccion.ProyectoIngresoQuipux.models.CancionLista;
 import co.com.listareproduccion.ProyectoIngresoQuipux.models.ListaReproduccion;
 import co.com.listareproduccion.ProyectoIngresoQuipux.models.ListaReproduccionDTO;
-import jakarta.transaction.Transactional;
 
 @Service
 public class ListaReproduccionManagerImpl implements IListaReproduccionManager {

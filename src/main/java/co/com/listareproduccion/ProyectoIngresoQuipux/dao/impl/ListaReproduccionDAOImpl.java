@@ -2,6 +2,8 @@ package co.com.listareproduccion.ProyectoIngresoQuipux.dao.impl;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.ws.rs.core.Response;
 
 import org.springframework.stereotype.Repository;
@@ -10,8 +12,7 @@ import co.com.listareproduccion.ProyectoIngresoQuipux.dao.IListaReproduccionDAO;
 import co.com.listareproduccion.ProyectoIngresoQuipux.models.CancionLista;
 import co.com.listareproduccion.ProyectoIngresoQuipux.models.ListaReproduccion;
 import co.com.listareproduccion.ProyectoIngresoQuipux.models.ListaReproduccionDTO;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.Query;
+
 
 @Repository
 public class ListaReproduccionDAOImpl implements IListaReproduccionDAO {
