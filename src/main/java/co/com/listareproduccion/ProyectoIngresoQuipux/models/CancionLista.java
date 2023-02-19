@@ -29,6 +29,10 @@ public class CancionLista {
 		this.idListaReproduccion = idListaReproduccion;
 	}
 	
+	public CancionLista() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getIdCancionLista() {
 		return idCancionLista;
 	}

@@ -14,6 +14,7 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -25,7 +26,7 @@ public class ListaReproduccionService {
 	private IListaReproduccionManager listaReproduccionManager;
 	
 	@GET
-	@Path("findListasReproduccion")
+	@Path("lists")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public List<ListaReproduccionDTO> findListasReproduccion(){
@@ -33,26 +34,26 @@ public class ListaReproduccionService {
 	}
 	
 	@POST
-	@Path("insertListaReproduccion")
+	@Path("lists")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response insertListaReproduccion(Cancion cancion, ListaReproduccion listaReproduccion){
-		return listaReproduccionManager.insertListaReproduccion(cancion, listaReproduccion) ;
+	public Response insertListaReproduccion(ListaReproduccionDTO listaReproduccion){
+		return listaReproduccionManager.insertListaReproduccion(listaReproduccion) ;
 	}
 	
 	@GET
-	@Path("insertListaReproduccion")
+	@Path("lists/{listName}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public ListaReproduccionDTO findListaReproduccion(String nombreLista){
+	public ListaReproduccionDTO findListaReproduccion(@PathParam("listName") String nombreLista){
 		return listaReproduccionManager.findListaReproduccion(nombreLista) ;
 	}
 	
 	@DELETE
-	@Path("deleteListaReproduccion")
+	@Path("lists/{listName}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response deleteListaReproduccion(String nombreLista){
+	public Response deleteListaReproduccion(@PathParam("listName") String nombreLista){
 		return listaReproduccionManager.eliminarListaReproduccion(nombreLista);
 	}
 	

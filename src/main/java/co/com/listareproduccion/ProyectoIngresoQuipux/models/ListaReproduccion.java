@@ -39,6 +39,10 @@ public class ListaReproduccion implements Serializable {
 		this.descripcion = descripcion;
 	}
 	
+	public ListaReproduccion() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getIdListaReproduccion() {
 		return idListaReproduccion;
 	}

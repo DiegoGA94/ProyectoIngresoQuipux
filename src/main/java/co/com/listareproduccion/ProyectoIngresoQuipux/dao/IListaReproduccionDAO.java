@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.ws.rs.core.Response;
 
-import co.com.listareproduccion.ProyectoIngresoQuipux.models.Cancion;
+import co.com.listareproduccion.ProyectoIngresoQuipux.models.CancionLista;
 import co.com.listareproduccion.ProyectoIngresoQuipux.models.ListaReproduccion;
 import co.com.listareproduccion.ProyectoIngresoQuipux.models.ListaReproduccionDTO;
 
@@ -12,9 +12,13 @@ public interface IListaReproduccionDAO {
 	
 	List<ListaReproduccionDTO> findListasReproduccion();
 	
-	Response insertListaReproduccion(Cancion cancion, ListaReproduccion listaReproduccion);
+	boolean insertListaReproduccion(ListaReproduccion listaReproduccion);
 
 	ListaReproduccionDTO findListaReproduccion(String nombreLista);
 	
-	Response eliminarListaReproduccion(String nombreLista);
+	boolean eliminarListaReproduccion(String nombreLista);
+
+	boolean insertCancionLista(CancionLista cancionLista);
+
+	ListaReproduccion findListaReproduccionEntity(String nombreLista);
 }

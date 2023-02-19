@@ -12,16 +12,16 @@ public class ListaReproduccionDTO implements Serializable {
 	
 	private String nombre;
 	private String descripcion;
-	private List<Cancion> cancionesLista;
+	private List<Cancion> canciones;
 	
 	
 	
 	public ListaReproduccionDTO(int idListaReproduccion, String nombre, String descripcion,
-			List<Cancion> cancionesLista) {
+			List<Cancion> canciones) {
 		super();
 		this.nombre = nombre;
 		this.descripcion = descripcion;
-		this.cancionesLista = cancionesLista;
+		this.canciones = canciones;
 	}
 	
 	public String getNombre() {
@@ -36,11 +36,11 @@ public class ListaReproduccionDTO implements Serializable {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	public List<Cancion> getCancionesLista() {
-		return cancionesLista;
+	public List<Cancion> getCanciones() {
+		return canciones;
 	}
-	public void setCancionesLista(List<Cancion> cancionesLista) {
-		this.cancionesLista = cancionesLista;
+	public void setCanciones(List<Cancion> canciones) {
+		this.canciones = canciones;
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;

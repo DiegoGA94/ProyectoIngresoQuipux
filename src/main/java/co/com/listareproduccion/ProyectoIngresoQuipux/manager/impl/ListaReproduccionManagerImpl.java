@@ -4,35 +4,79 @@ import java.util.List;
 
 import javax.ws.rs.core.Response;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import co.com.listareproduccion.ProyectoIngresoQuipux.dao.IListaReproduccionDAO;
 import co.com.listareproduccion.ProyectoIngresoQuipux.manager.IListaReproduccionManager;
-import co.com.listareproduccion.ProyectoIngresoQuipux.models.Cancion;
+import co.com.listareproduccion.ProyectoIngresoQuipux.models.CancionLista;
 import co.com.listareproduccion.ProyectoIngresoQuipux.models.ListaReproduccion;
 import co.com.listareproduccion.ProyectoIngresoQuipux.models.ListaReproduccionDTO;
+import jakarta.transaction.Transactional;
 
+@Service
 public class ListaReproduccionManagerImpl implements IListaReproduccionManager {
+	
+	@Autowired
+	private IListaReproduccionDAO listaReproduccionDAO;
 
 	@Override
 	public List<ListaReproduccionDTO> findListasReproduccion() {
-		
-		return null;
+		List<ListaReproduccionDTO> listasReproduccion = listaReproduccionDAO.findListasReproduccion();
+		return listasReproduccion;
 	}
 
 	@Override
-	public Response insertListaReproduccion(Cancion cancion, ListaReproduccion listaReproduccion) {
-		// TODO Auto-generated method stub
-		return null;
+	@Transactional
+	public Response insertListaReproduccion(ListaReproduccionDTO listaReproduccion) {
+		
+		ListaReproduccion listaReproduccionInsert = new ListaReproduccion();
+		
+		CancionLista cancionLista = new CancionLista();
+		
+		//insertamos la lista de reproduccion
+		listaReproduccionInsert.setNombre(listaReproduccion.getNombre());
+		listaReproduccionInsert.setDescripcion(listaReproduccion.getDescripcion());
+		boolean responseInsertLista = listaReproduccionDAO.insertListaReproduccion(listaReproduccionInsert);
+		
+		if(responseInsertLista ==true) {
+			//insertar en la tabla relacion CancionList
+			ListaReproduccion lista = findListaReproduccionEntity(listaReproduccion.getNombre());
+			
+			for(int i=0; i<listaReproduccion.getCanciones().size();i++) {
+				
+				cancionLista.setIdCancion(listaReproduccion.getCanciones().get(i).getIdCancion());
+				cancionLista.setIdListaReproduccion(lista.getIdListaReproduccion());
+				listaReproduccionDAO.insertCancionLista(cancionLista);
+			}
+			
+			return Response.status(Response.Status.CREATED).build();
+		}else {
+			return Response.status(Response.Status.BAD_REQUEST).build();
+		}
 	}
 
 	@Override
 	public ListaReproduccionDTO findListaReproduccion(String nombreLista) {
-		// TODO Auto-generated method stub
-		return null;
+		ListaReproduccionDTO listaReproduccionDTO = listaReproduccionDAO.findListaReproduccion(nombreLista);
+		return listaReproduccionDTO;
+	}
+	
+	@Override
+	public ListaReproduccion findListaReproduccionEntity(String nombreLista) {
+		ListaReproduccion listaReproduccion = listaReproduccionDAO.findListaReproduccionEntity(nombreLista);
+		return listaReproduccion;
 	}
 
 	@Override
+	@Transactional
 	public Response eliminarListaReproduccion(String nombreLista) {
-		// TODO Auto-generated method stub
-		return null;
+		boolean responseInsertLista = listaReproduccionDAO.eliminarListaReproduccion(nombreLista);
+		if(responseInsertLista == true) {
+			return Response.status(Response.Status.CREATED).build();
+		}else {
+			return Response.status(Response.Status.BAD_REQUEST).build();
+		}
 	}
 
 }

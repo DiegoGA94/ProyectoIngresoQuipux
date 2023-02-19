@@ -7,7 +7,7 @@ import javax.ws.rs.core.Response;
 import org.springframework.stereotype.Repository;
 
 import co.com.listareproduccion.ProyectoIngresoQuipux.dao.IListaReproduccionDAO;
-import co.com.listareproduccion.ProyectoIngresoQuipux.models.Cancion;
+import co.com.listareproduccion.ProyectoIngresoQuipux.models.CancionLista;
 import co.com.listareproduccion.ProyectoIngresoQuipux.models.ListaReproduccion;
 import co.com.listareproduccion.ProyectoIngresoQuipux.models.ListaReproduccionDTO;
 import jakarta.persistence.EntityManager;
@@ -31,22 +31,61 @@ public class ListaReproduccionDAOImpl implements IListaReproduccionDAO {
 		return listaReproduccion;
 	}
 
+	@SuppressWarnings("static-access")
 	@Override
-	public Response insertListaReproduccion(Cancion cancion, ListaReproduccion listaReproduccion) {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean insertListaReproduccion(ListaReproduccion listaReproduccion) {
+		try {
+			em.merge(listaReproduccion);
+			em.flush();
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
+	
+	@SuppressWarnings("static-access")
+	@Override
+	public boolean insertCancionLista(CancionLista cancionLista) {
+		try {
+			em.merge(cancionLista);
+			em.flush();
+			return true;
+		} catch (Exception e) {
+			return false;
+			// TODO: handle exception
+		}
+	}
+	
 
 	@Override
 	public ListaReproduccionDTO findListaReproduccion(String nombreLista) {
-		// TODO Auto-generated method stub
-		return null;
+		Query query = em.createNativeQuery("Select NOMBRE, DESCRIPCION FROM LISTA_REPRODUCCION WHERE NOMBRE = #nombre ", "ListaReproduccionDTO");
+		ListaReproduccionDTO listaReproduccionDTO =  (ListaReproduccionDTO) query.getSingleResult();
+		return listaReproduccionDTO;
 	}
 
 	@Override
-	public Response eliminarListaReproduccion(String nombreLista) {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean eliminarListaReproduccion(String nombreLista) {
+		try {
+			ListaReproduccion lista = this.findListaReproduccionEntity(nombreLista);
+			Query query1 = em.createNativeQuery("DELETE FROM CANCION_LISTA WHERE ID_LISTA_REPRODUCCION = #idListaReproduccion");
+			query1.setParameter("idListaReproduccion", lista.getIdListaReproduccion());
+			query1.executeUpdate();
+			Query query = em.createNativeQuery("DELETE FROM LISTA_REPRODUCCION WHERE ID_LISTA_REPRODUCCION = #idListaReproduccion");
+			query.setParameter("idListaReproduccion", lista.getIdListaReproduccion());
+			query.executeUpdate();
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	@Override
+	public ListaReproduccion findListaReproduccionEntity(String nombreLista) {
+		Query query = em.createNativeQuery("Select ID_LISTA_REPRODUCCION, NOMBRE, DESCRIPCION FROM LISTA_REPRODUCCION WHERE NOMBRE = #nombre", ListaReproduccion.class);
+		query.setParameter("nombre", nombreLista);
+		ListaReproduccion listaRe = (ListaReproduccion) query.getSingleResult();
+		return listaRe;
 	}
 
 }
