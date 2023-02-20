@@ -3,9 +3,10 @@ package co.com.listareproduccion.ProyectoIngresoQuipux.dao.impl;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.ws.rs.core.Response;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import co.com.listareproduccion.ProyectoIngresoQuipux.dao.IListaReproduccionDAO;
@@ -17,7 +18,7 @@ import co.com.listareproduccion.ProyectoIngresoQuipux.models.ListaReproduccionDT
 @Repository
 public class ListaReproduccionDAOImpl implements IListaReproduccionDAO {
 
-	
+	@PersistenceContext
 	private EntityManager em;
 	
 	@SuppressWarnings("unchecked")
@@ -32,7 +33,6 @@ public class ListaReproduccionDAOImpl implements IListaReproduccionDAO {
 		return listaReproduccion;
 	}
 
-	@SuppressWarnings("static-access")
 	@Override
 	public boolean insertListaReproduccion(ListaReproduccion listaReproduccion) {
 		try {
@@ -44,7 +44,6 @@ public class ListaReproduccionDAOImpl implements IListaReproduccionDAO {
 		}
 	}
 	
-	@SuppressWarnings("static-access")
 	@Override
 	public boolean insertCancionLista(CancionLista cancionLista) {
 		try {

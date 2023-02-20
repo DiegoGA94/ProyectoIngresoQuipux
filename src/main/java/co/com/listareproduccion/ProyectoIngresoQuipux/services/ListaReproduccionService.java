@@ -1,5 +1,6 @@
 package co.com.listareproduccion.ProyectoIngresoQuipux.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import co.com.listareproduccion.ProyectoIngresoQuipux.manager.IListaReproduccionManager;
@@ -23,6 +24,7 @@ import javax.ws.rs.core.Response;
 @Path("listaReproduccion")
 public class ListaReproduccionService {
 
+	@Autowired
 	private IListaReproduccionManager listaReproduccionManager;
 	
 	@GET

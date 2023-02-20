@@ -16,13 +16,13 @@ public class CancionLista {
 	private int idCancionLista;
 	@ManyToOne
 	@JoinColumn(name = "ID_CANCION")
-	private int idCancion;
+	private Cancion idCancion;
 	@ManyToOne
 	@JoinColumn(name = "ID_LISTA_REPRODUCCION")
-	private int idListaReproduccion;
+	private ListaReproduccion idListaReproduccion;
 	
 	
-	public CancionLista(int idCancionLista, int idCancion, int idListaReproduccion) {
+	public CancionLista(int idCancionLista, Cancion idCancion, ListaReproduccion idListaReproduccion) {
 		super();
 		this.idCancionLista = idCancionLista;
 		this.idCancion = idCancion;
@@ -39,16 +39,16 @@ public class CancionLista {
 	public void setIdCancionLista(int idCancionLista) {
 		this.idCancionLista = idCancionLista;
 	}
-	public int getIdCancion() {
+	public Cancion getIdCancion() {
 		return idCancion;
 	}
-	public void setIdCancion(int idCancion) {
+	public void setIdCancion(Cancion idCancion) {
 		this.idCancion = idCancion;
 	}
-	public int getIdListaReproduccion() {
+	public ListaReproduccion getIdListaReproduccion() {
 		return idListaReproduccion;
 	}
-	public void setIdListaReproduccion(int idListaReproduccion) {
+	public void setIdListaReproduccion(ListaReproduccion idListaReproduccion) {
 		this.idListaReproduccion = idListaReproduccion;
 	}
 	

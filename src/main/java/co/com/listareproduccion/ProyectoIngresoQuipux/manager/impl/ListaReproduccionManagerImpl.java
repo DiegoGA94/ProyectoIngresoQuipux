@@ -3,7 +3,9 @@ package co.com.listareproduccion.ProyectoIngresoQuipux.manager.impl;
 import java.util.List;
 
 import javax.transaction.Transactional;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,14 +47,14 @@ public class ListaReproduccionManagerImpl implements IListaReproduccionManager {
 			
 			for(int i=0; i<listaReproduccion.getCanciones().size();i++) {
 				
-				cancionLista.setIdCancion(listaReproduccion.getCanciones().get(i).getIdCancion());
-				cancionLista.setIdListaReproduccion(lista.getIdListaReproduccion());
+				cancionLista.setIdCancion(listaReproduccion.getCanciones().get(i));
+				cancionLista.setIdListaReproduccion(lista);
 				listaReproduccionDAO.insertCancionLista(cancionLista);
 			}
 			
-			return Response.status(Response.Status.CREATED).build();
+			return Response.status(Status.CREATED).type(MediaType.APPLICATION_JSON).build();
 		}else {
-			return Response.status(Response.Status.BAD_REQUEST).build();
+			return Response.status(Status.BAD_REQUEST).type(MediaType.APPLICATION_JSON).build();
 		}
 	}
 
@@ -73,9 +75,9 @@ public class ListaReproduccionManagerImpl implements IListaReproduccionManager {
 	public Response eliminarListaReproduccion(String nombreLista) {
 		boolean responseInsertLista = listaReproduccionDAO.eliminarListaReproduccion(nombreLista);
 		if(responseInsertLista == true) {
-			return Response.status(Response.Status.CREATED).build();
+			return Response.status(Status.CREATED).build();
 		}else {
-			return Response.status(Response.Status.BAD_REQUEST).build();
+			return Response.status(Status.BAD_REQUEST).build();
 		}
 	}
 
